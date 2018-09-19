@@ -1,0 +1,56 @@
+@using TechChallenge.Models
+@model TechChallenge.Models.Book
+@{
+    //Generate unique ids for the book modals.
+    var detailsId = "DetailsModal" + Model.Title.Substring(Model.Title.Length - 1);
+    var editId = "EditModal" + Model.Title.Substring(Model.Title.Length - 1);
+}
+
+<div id="@Model.Title" class="col-auto text-center p-0 m-4 book">
+
+    <button class="p-0 border-0" type="button" data-toggle="modal" data-target="#@detailsId" title="Book details" >
+        <!-- Book Cover Page -->
+        <img class="cover-image border border-light" src=@Model.CoverPage>
+        <!-- Details Icon -->
+        <i class="material-icons book-buttons details-button">remove_red_eye</i>
+    </button>
+
+    <!-- Edit and Delete Book buttons -->
+    <div class="row m-0 book-buttons border border-light bg-dark">
+        <div class="col-6 p-0">
+            <button class="plain-button" type="button" data-toggle="modal" data-target="#@editId" title="Edit book"><i class="material-icons">edit</i></button>
+        </div>
+        <div class="col-6 p-0">
+            <form method="post" asp-page-handler="Delete">
+                <input value=@Model.Id name="id" hidden>
+                <button class="plain-button" type="submit" title="Delete book"><i class="material-icons">close</i></button>
+            </form>
+        </div>            
+    </div>
+
+</div>
+
+<!-- Book Details Modal -->
+<div class="modal fade" id="@detailsId" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h2 class="mt-1">@Model.Title</h2>
+                <p class="text-justify my-3">@Model.Summary</p>
+                <h4 class="my-3">@Model.Author, @Model.Published - @Model.Genre </h4>
+                <a class="mb-1" href=@Model.Link><h3>Buy Now</h3></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Edit Book Modal -->
+<div class="modal fade" id="@editId" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                @await Html.PartialAsync("_BookInput", new BookInputViewModel("Edit", Model) )
+            </div>
+        </div>
+    </div>
+</div>

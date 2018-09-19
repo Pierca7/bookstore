@@ -1,0 +1,45 @@
+@using TechChallenge.Models
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark " id="Navbar">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-1" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar-1">
+
+    <ul class="navbar-nav mr-auto">
+
+        <!--Create Book Modal -->
+        <li class="nav-item my-auto">            
+            <button type="button" class="plain-button" data-toggle="modal" data-target="#CreateModal" title="Add book"><i class="material-icons">add</i></button>
+            <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content text-center">
+                        <div class="modal-body">
+                            @await Html.PartialAsync("_BookInput", new BookInputViewModel("Create", new Book()) )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <!-- Sorting options -->
+        <li class="nav-item dropdown my-auto mx-auto">
+        <a class="nav-link dropdown-toggle" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by</a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="sort">
+            <a class="dropdown-item" asp-route-key="Relevance">Relevance</a>
+            <a class="dropdown-item" asp-route-key="Title">Title</a>
+            <a class="dropdown-item" asp-route-key="Author">Author</a>
+            <a class="dropdown-item" asp-route-key="Published">Date of publication</a>
+        </div>
+        </li>
+
+    </ul>
+
+    <!-- Searchbar -->
+    <form class="form-inline my-2 my-md-0">
+        <input id="Filter" class="form-control " type="text" placeholder="Search by title">
+    </form>
+
+    </div>
+</nav>

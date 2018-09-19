@@ -1,0 +1,44 @@
+@model TechChallenge.Models.BookInputViewModel
+
+<!-- Form for creating or editing a book -->
+<form method="post" asp-page-handler=@Model.Handler enctype="multipart/form-data">
+    <input asp-for="Book.Id" value="@Model.Book.Id" hidden>
+    <input asp-for="Book.CoverPage" value="@Model.Book.CoverPage" hidden>
+    <div class="form-group">
+        <label asp-for="Book.Title"></label>
+        <input asp-for="Book.Title" class="form-control" maxlength="128">
+        <span asp-validation-for="Book.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.Author"></label>
+        <input asp-for="Book.Author" class="form-control" maxlength="64">
+        <span asp-validation-for="Book.Author" class="text-danger"></span>
+    </div>
+    <div class="form-group justify-content-center">
+        <label>Upload or keep cover page image?</label>
+        <input name="hasImage" value="true" type="checkbox" checked />
+        <input class="form-control-file" name="Image" type="file" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.Summary"></label>
+        <textarea asp-for="Book.Summary" class="form-control" maxlength="256" rows="5"></textarea>
+        <span asp-validation-for="Book.Summary" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.Genre"></label>
+        <select asp-for="Book.Genre" asp-items="Model.Genres" class="form-control">        
+        </select>
+        <span asp-validation-for="Book.Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.Published"></label>
+        <input asp-for="Book.Published" class="form-control" max="@System.DateTime.Now.Year" min="0">
+        <span asp-validation-for="Book.Published" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Book.Link"></label>
+        <input asp-for="Book.Link" class="form-control" title="Website in 'www.example.com' format" placeholder="www.example.com">
+        <span asp-validation-for="Book.Link" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-dark">@Model.Handler</button>
+</form>
